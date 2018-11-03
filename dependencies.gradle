@@ -1,0 +1,10 @@
+ext.pluginsVersions = [
+        kotlin: '1.3.0'
+]
+
+ext.versions = [
+        ktor   : '1.0.0-beta-1',
+        logback: '1.2.3',
+        junit  : '4.12'
+
+]

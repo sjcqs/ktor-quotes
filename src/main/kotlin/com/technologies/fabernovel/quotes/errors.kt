@@ -16,9 +16,14 @@ fun StatusPages.Configuration.exceptionFilters() {
     exception<InvalidCredentialsException> { exception ->
         call.respond(HttpStatusCode.Unauthorized, errorResponse(exception))
     }
+    exception<QuoteException> { exception ->
+        call.respond(HttpStatusCode.BadRequest, errorResponse(exception))
+
+    }
     exception<InvalidRequestException> { exception ->
         call.respond(HttpStatusCode.BadRequest, errorResponse(exception))
     }
+
 }
 
 private fun errorResponse(exception: IllegalArgumentException) =
@@ -31,3 +36,5 @@ class InvalidRequestException(message: String) : QuoteException(message)
 class InvalidCredentialsException(
     message: String = "Invalid credentials"
 ) : QuoteException(message)
+
+class QuoteNotFoundException(message: String): QuoteException(message)

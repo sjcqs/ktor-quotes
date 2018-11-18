@@ -1,5 +1,6 @@
 package com.technologies.fabernovel.quotes.repo.quote
 
+import com.technologies.fabernovel.quotes.QuoteNotFoundException
 import java.util.concurrent.CopyOnWriteArraySet
 import java.util.concurrent.atomic.AtomicInteger
 
@@ -20,7 +21,7 @@ object QuoteRepository {
 
     fun get(id: String): Quote = quotes.find {
         it.id.toString() == id
-    } ?: throw IllegalArgumentException("No quote with id: $id")
+    } ?: throw QuoteNotFoundException("No quote with id: $id")
 
     fun get(id: Int): Quote = get(id.toString())
 
@@ -28,14 +29,14 @@ object QuoteRepository {
 
     fun remove(quote: Quote): Boolean {
         if (!quotes.remove(quote)) {
-            throw java.lang.IllegalArgumentException("Quote is not in the repoo")
+            throw QuoteNotFoundException("Quote is not in the repoo")
         }
         return true
     }
 
     fun remove(id: String): Boolean = remove(get(id))
 
-    fun remvoe(id: Int): Boolean = remove(get(id))
+    fun remove(id: Int): Boolean = remove(get(id))
 
     fun removeAll() {
         quotes.clear()

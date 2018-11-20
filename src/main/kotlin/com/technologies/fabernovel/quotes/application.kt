@@ -25,7 +25,7 @@ import java.text.DateFormat
 import java.time.Duration
 
 private val verifier = Auth.makeJwtVerifier()
-fun Application.main() {
+fun Application.module() {
     setup()
     routes()
 }

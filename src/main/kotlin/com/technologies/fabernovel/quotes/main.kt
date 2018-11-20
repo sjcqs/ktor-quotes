@@ -18,5 +18,5 @@ fun main(args: Array<String>) {
         LOG.debug("Custom port configured: ${args[0]}")
         args[0].split("=").last().trim().toInt()
     } else defaultPort
-    embeddedServer(Netty, port, module = Application::main).start(wait = true)
+    embeddedServer(Netty, port, module = Application::module).start(wait = true)
 }

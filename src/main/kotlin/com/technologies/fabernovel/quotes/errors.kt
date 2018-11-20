@@ -1,6 +1,7 @@
 package com.technologies.fabernovel.quotes
 
 import com.fasterxml.jackson.databind.exc.MismatchedInputException
+import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
 import io.ktor.application.call
 import io.ktor.features.StatusPages
 import io.ktor.http.HttpStatusCode
@@ -8,6 +9,12 @@ import io.ktor.response.respond
 
 fun StatusPages.Configuration.exceptionFilters() {
     exception<MismatchedInputException> { cause ->
+        val local = call.request.local
+        val message = "Invalid request for ${local.method.value} ${local.uri}"
+        call.respond(HttpStatusCode.BadRequest, errorResponse(InvalidRequestException(message)))
+        throw cause
+    }
+    exception<MissingKotlinParameterException> { cause ->
         val local = call.request.local
         val message = "Invalid request for ${local.method.value} ${local.uri}"
         call.respond(HttpStatusCode.BadRequest, errorResponse(InvalidRequestException(message)))
